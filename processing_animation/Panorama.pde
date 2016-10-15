@@ -1,5 +1,5 @@
 class Panorama extends Renderer {
-  ArrayList<Renderer> _panoramaElements;
+  HashMap<String,Renderer> _panoramaElements;
   ColorPalette _colorPalette;
   color _sunColor, _skyColor;
   PGraphics _mask;
@@ -15,22 +15,26 @@ class Panorama extends Renderer {
     _colorPalette = new ColorPalette();
     _sunColor = _colorPalette.fetchRandomColor();
     _skyColor = _colorPalette.fetchRandomColor();
-    _panoramaElements = new ArrayList<Renderer>();
-    _panoramaElements.add(new Sky(this, _pg.width, _pg.height, _skyColor, _colorPalette.fetchRandomColor()));
-    _panoramaElements.add(new Sun(this, _pg.width, _pg.height, _sunColor));
-    _panoramaElements.add(new Mountains(this, _pg.width, _pg.height, _colorPalette.fetchRandomColor(), _sunColor, _skyColor));
+    _panoramaElements = new HashMap<String,Renderer>();
+    _panoramaElements.put(AnimationTargets.SKY,new Sky(this, _pg.width, _pg.height, _skyColor, _colorPalette.fetchRandomColor()));
+    _panoramaElements.put(AnimationTargets.SUN,new Sun(this, _pg.width, _pg.height, _sunColor));
+    _panoramaElements.put(AnimationTargets.MOUNTAINS,new Mountains(this, _pg.width, _pg.height, _colorPalette.fetchRandomColor(), _sunColor, _skyColor));
+    _ppp.addEffectToPipeline("Oval Mask",new OvalMaskEffect());
     generateMask();
-    for (Renderer r : _panoramaElements) {
+    for (Renderer r : _panoramaElements.values()) {
       r.render();
     }
   }
 
   public void update() {
-    for (Renderer r : _panoramaElements) {
+    for (Renderer r : _panoramaElements.values()) {
       r.update();
     }
   }
 
+  public void processAction(AnimationAction animationAction){
+    
+  }
   private void generateMask() {
     _mask = createGraphics(_width, _height);
     _mask.beginDraw();
@@ -41,20 +45,13 @@ class Panorama extends Renderer {
   }
 
   public void render() {
-    PGraphics panoramaRender = createGraphics(_width, _height);
-    PImage bufferImage;
     _pg.beginDraw();
-    _pg.background(0);
-    fill(#FFFFFF);
-    rect(0, 0, width, height);
-    panoramaRender.beginDraw();
-
-    for (Renderer r : _panoramaElements) {
-      image(r.getImage(), 0, 0);
+    _pg.background(255);
+    _pg.scale(1);
+    for (Renderer r : _panoramaElements.values()) {
+      r.display(_pg);
     }
-    panoramaRender.endDraw();
-    bufferImage = Utility.convertGraphicToImage(panoramaRender);
-    image(bufferImage, 0, 0);
     _pg.endDraw();
+    //image(_pg,0,0);
   }
 }

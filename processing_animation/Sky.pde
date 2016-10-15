@@ -1,5 +1,5 @@
 class Sky extends PanoramaElement{
-  float SKY_PRECISION = 0.001;
+  float SKY_PRECISION = 0.0015;
   color[][] _skyTexture;
   color _cloudColor;
   Sky(Panorama paronama, int w,int h, color c,color cloudColor){

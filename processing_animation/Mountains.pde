@@ -1,10 +1,11 @@
 class Mountains extends PanoramaElement {
 
-  final float DEFAULT_MOUNTAIN_PRECISION = 0.005;
-  final int DEFAULT_MOUNTAIN_DIVISION = 1200;
+  final float DEFAULT_MOUNTAIN_PRECISION = 0.006;
+  final int DEFAULT_MOUNTAIN_DIVISION = 1400;
   final float DEFAULT_MOUNTAIN_SPEED = -0.05;
   final int DISTANCE_FROM_TOP_SCREEN = 0;
-  final float MAX_HEIGHT = 1000* Utility.QUALITY_RENDER;
+  final float MAX_HEIGHT = 400* Utility.QUALITY_RENDER;
+  final int DIM_LIGHTS_FACTOR = 60;
 
 
   float _precision = DEFAULT_MOUNTAIN_PRECISION;
@@ -15,7 +16,7 @@ class Mountains extends PanoramaElement {
   float[][] _heightMap;
   float _relativeHeight;
   float _relativeWidth;
-  color _sunColor,_skyColor;
+  color _sunColor, _skyColor;
 
 
   Mountains(Panorama panorama, int w, int h, color c, color sunColor, color skyColor) {
@@ -53,19 +54,18 @@ class Mountains extends PanoramaElement {
   private void init() {
     calculateSubdivisionsSize();
     generateHeightMap();
+    _ppp.addEffectToPipeline("mirror", new MirrorEffect());
   }
 
   public void calculateSubdivisionsSize() {
     _subdivisionsSize = new PVector(_relativeWidth/ _divisionsCount, _relativeHeight/_divisionsCount);
   }
 
-  public void render(){
-    PImage mirrorMountain;
-    clear();
+  public void render() {
     _pg.beginDraw();
-    _pg.directionalLight(red(_sunColor), green(_sunColor), blue(_sunColor), 0, -1, 1);
-    _pg.directionalLight(red(_sunColor), green(_sunColor), blue(_sunColor), 0, 0, -1);
-    _pg.ambientLight(red(_skyColor), green(_skyColor), blue(_skyColor));
+    _pg.directionalLight(red(_sunColor)-DIM_LIGHTS_FACTOR, green(_sunColor)-DIM_LIGHTS_FACTOR, blue(_sunColor)-DIM_LIGHTS_FACTOR, 0, -1, 1);
+    _pg.directionalLight(red(_sunColor)-DIM_LIGHTS_FACTOR, green(_sunColor)-DIM_LIGHTS_FACTOR, blue(_sunColor)-DIM_LIGHTS_FACTOR, 0, 0, -1);
+    _pg.ambientLight(red(_skyColor)-DIM_LIGHTS_FACTOR, green(_skyColor)-DIM_LIGHTS_FACTOR, blue(_skyColor)-DIM_LIGHTS_FACTOR);
     _pg.directionalLight(255, 255, 255, 0, -1, 0);
     _pg.shininess(10.0);
     _pg.ambient(_skyColor);
@@ -73,9 +73,9 @@ class Mountains extends PanoramaElement {
     _pg.fill(_c);
     _pg.noStroke();
     _pg.translate(_width/2, _height, 0);
-    _pg.rotateX(PI * 0.333);
+    _pg.rotateX(PI * 0.5);
     _pg.translate(-_relativeWidth/2, -_relativeHeight/2, 0);
     generateMesh();
-    _pg.endDraw();    
+    _pg.endDraw();
   }
 }

@@ -19,29 +19,32 @@ class MainAnimator{
   }
   
   public void reset(){
+    background(0);
     _pg = createGraphics(_w,_h);
-    _panorama = new Panorama((int)(_w*Utility.QUALITY_RENDER),(int)(_h*Utility.QUALITY_RENDER));
+    _panorama = new Panorama(_w,_h);
   }
+  
   
   public void update(){
     _panorama.update();
   }
   
+  public void processAction(AnimationAction animationAction){
+    _panorama.processAction(animationAction);
+  }
+  
   public void display(){
-    background(0);
-    scale(Utility.QUALITY_RENDER);
-    
+    _pg.beginDraw();
+    _pg.background(255);
+    _pg.noStroke();
+    _pg.tint(255,90);
     _panorama.render();
-  /*  _pg.beginDraw();
-    _pg.translate(_w/2,_h/2);
-    
-    _pg.image(_panorama.getImage(),0,0);
+    _panorama.display(_pg);
     _pg.endDraw();
-    image(_pg,0,0);*/
+    image(_pg,0,0);
   }
   
   public void updateAndDisplay(){
-    background(255);
     update();
     display();
   }
