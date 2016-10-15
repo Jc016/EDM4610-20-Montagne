@@ -1,7 +1,7 @@
 static class AnimationEffects{
-  final String ZOOM = "zoom";
-  final String DUPPLICATE = "dupplicate";
+  public static final String ZOOM = "zoom";
+  public static final String DUPPLICATE = "dupplicate";
   
-  private final String [] _effects = {ZOOM,DUPPLICATE}; 
+  public static final String [] _effects = {ZOOM,DUPPLICATE}; 
   
 }

@@ -1,4 +1,4 @@
-class AnimationAction{
+public class AnimationAction{
   private String _target, _effect;
   private boolean _state;
   AnimationAction(String target, String effect, boolean state) {
