@@ -11,4 +11,7 @@ abstract class PostProcessEffect {
   public void toggleActiveState() {
     _isActive = !_isActive;
   }
+  public abstract void processState(boolean state);
+  public abstract void end();
+  public abstract void begin();
 }

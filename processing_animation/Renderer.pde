@@ -33,7 +33,7 @@ public abstract class Renderer {
   
   public PGraphics getCopyGraphics(){
     
-    PGraphics copyGraphic = createGraphics(_width, _height);
+    PGraphics copyGraphic = createGraphics(_width, _height, P3D);
     copyGraphic.beginDraw();
     _pg.loadPixels();
     copyGraphic.loadPixels();

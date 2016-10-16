@@ -21,7 +21,7 @@ class ChromaticAberrationEffect extends PostProcessEffect {
       showChannel(context, greenChannel, COLOR_PIXELS_OFFSET, 0);
       showChannel(context, blueChannel, 0, -COLOR_PIXELS_OFFSET);
       context.popStyle();
- 
+
       context.endDraw();
     }
   }
@@ -82,4 +82,10 @@ class ChromaticAberrationEffect extends PostProcessEffect {
     drawContext.popStyle();
   }
 
+  public void begin() {
+  }
+  public void processState(boolean state) {
+  }
+  public void end() {
+  }
 }  

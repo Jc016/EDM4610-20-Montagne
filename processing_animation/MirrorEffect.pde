@@ -12,16 +12,18 @@ class MirrorEffect extends PostProcessEffect {
     context.noFill();
     context.pushMatrix();
     context.pushStyle();
-    context.scale(-1,-1);
-    context.image(context,-w,-h);
+    context.scale(-1, -1);
+    context.image(context, -w, -h);
     context.popStyle();
     context.popMatrix();
-    context.image(context,0,0);
+    context.image(context, 0, 0);
     context.endDraw();
   }
-  
 
-  
-  
- 
+  public void begin() {
+  }
+  public void processState(boolean state) {
+  }
+  public void end() {
+  }
 }  

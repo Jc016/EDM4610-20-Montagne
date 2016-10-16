@@ -19,6 +19,10 @@ class PostProcessPipeline {
     m_postProcessEffects.remove(name);
   }
   
+  public PostProcessEffect getEffect(String effectKey){
+    return m_postProcessEffects.get(effectKey);
+  }
+  
   public void setPipelineTo(PGraphics context) {
     for (PostProcessEffect ppe : m_postProcessEffects.values()) {
       ppe.applyEffectOn(context);
