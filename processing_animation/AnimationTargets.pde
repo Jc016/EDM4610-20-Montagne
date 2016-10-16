@@ -5,6 +5,13 @@ static class AnimationTargets{
   public static  final String MOUNTAINS = "amoutains";
   public static  final String SKY="csky";
   
-  private final String []_targets = {PANORAMA,SUN,MOUNTAINS}; 
+  public static final String [] LIST = {PANORAMA,SUN,MOUNTAINS}; 
+  
+  public static String getRandom(){
+    Random r = new Random();
+    String chosen = LIST[r.nextInt(LIST.length)];
+    println(chosen);
+    return  chosen;
+  }
   
 }

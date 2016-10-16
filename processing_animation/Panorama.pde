@@ -19,6 +19,7 @@ class Panorama extends Renderer {
     _panoramaElements.put(AnimationTargets.SKY, new Sky(this, _pg.width, _pg.height, _skyColor, _colorPalette.fetchRandomColor()));
     _panoramaElements.put(AnimationTargets.SUN, new Sun(this, _pg.width, _pg.height, _sunColor));
     _panoramaElements.put(AnimationTargets.MOUNTAINS, new Mountains(this, _pg.width, _pg.height, _colorPalette.fetchRandomColor(), _sunColor, _skyColor));
+    _ppp.addEffectToPipeline(AnimationEffects.FEEDBACK, new FeedbackEffect(_pg));   
     _ppp.addEffectToPipeline(AnimationEffects.ZOOM, new ZoomEffect(_pg));
     _ppp.addEffectToPipeline("Oval Mask", new OvalMaskEffect());
     for (Renderer r : _panoramaElements.values()) {
@@ -32,6 +33,8 @@ class Panorama extends Renderer {
   public void processAction(AnimationAction animationAction) {
     if (animationAction.getTarget()== AnimationTargets.PANORAMA) {
       _ppp.getEffect(animationAction.getEffect()).processState(animationAction.getState());
+    } else {
+      ((PanoramaElement)_panoramaElements.get(animationAction.getTarget())).processAction(animationAction);
     }
   }
 

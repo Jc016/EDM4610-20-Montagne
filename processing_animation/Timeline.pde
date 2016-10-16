@@ -49,9 +49,11 @@ public static  class Timeline
         @Override
           public void run() {
           _position += _positionSpeed;
+          println(_position);
           if (_listActions.containsKey((int)_position)) {
             AnimationAction aa =  _listActions.get((int)_position);
             _ma.processAction(aa);
+            println(aa.toString());
             _listActions.remove(aa);
           }
         }

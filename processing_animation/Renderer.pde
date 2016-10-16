@@ -10,18 +10,19 @@ public abstract class Renderer {
     _ppp = new PostProcessPipeline();
     clear();
   }
-  
-  protected void clear(){
-    _pg= createGraphics(_width, _height,P3D);
+
+  protected void clear() {
+    _pg= createGraphics(_width, _height, P3D);
   }
 
   public abstract void update();
   public abstract void render();
-  public void display (PGraphics parent){
+  public void display (PGraphics parent) {
     PGraphics pipelineGraphic = getCopyGraphics();
     _ppp.setPipelineTo(pipelineGraphic);
-    parent.image(pipelineGraphic.get(),0,0);
+    parent.image(pipelineGraphic.get(), 0, 0);
   }
+
 
   public PImage getImage() {
     return _pg.get();
@@ -30,9 +31,9 @@ public abstract class Renderer {
   public PGraphics getGraphics() {
     return _pg;
   }
-  
-  public PGraphics getCopyGraphics(){
-    
+
+  public PGraphics getCopyGraphics() {
+
     PGraphics copyGraphic = createGraphics(_width, _height, P3D);
     copyGraphic.beginDraw();
     _pg.loadPixels();
@@ -41,7 +42,6 @@ public abstract class Renderer {
     copyGraphic.updatePixels();
     copyGraphic.endDraw();
     return copyGraphic;
-    
   }
 
   public void updateAndDisplay() {

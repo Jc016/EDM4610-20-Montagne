@@ -3,8 +3,8 @@
 //Par Jean-Christophe Leclerc-Massé
 
 class ZoomEffect extends PostProcessEffect implements ITimelineAnimation {
-  final float MIN_SCALE = 1.2;
-  final float MAX_SCALE = 2;
+  final float MIN_SCALE = 1.5;
+  final float MAX_SCALE = 2.3;
   float _scaleFactor = 1.0;
   final float TRANSLATE_PRECISIOM = 0.1;
   PVector _translate;

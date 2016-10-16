@@ -4,8 +4,9 @@ class MainAnimator {
   //Class global variables
   private final float MIN_ACTION_DURATION = 3;
   private final float MAX_ACTION_DURATION = 15;
-  private final int MIN_OCCURENCES_ANIMATIONS = 10;
-  private final int MAX_OCCURENCES_ANIMATIONS = 20;
+  private final int MIN_OCCURENCES_ANIMATIONS = 20;
+  private final int MAX_OCCURENCES_ANIMATIONS = 30;
+  private final int START_TIME_EFFECT = 6;
 
   PGraphics _pg;
   Panorama _panorama;
@@ -34,12 +35,12 @@ class MainAnimator {
       _timeline.reset();
     }
     generateEffects();
-    _timeline.setNewBpm(60);
+    _timeline.setNewBpm(180);
   }
 
 
   public void update() {
-    if(_timeline.getPosition() > _timeline.getLength()){
+    if (_timeline.getPosition() > _timeline.getLength()) {
       reset();
     }
   }
@@ -53,11 +54,14 @@ class MainAnimator {
     ArrayList<Integer> startPositionsList = new ArrayList<Integer>();
     int nextStartPosition = -1;
     for (int i = 0; i < count; i++) {
+      String effectTarget = AnimationTargets.getRandom();
+      String  effect =  AnimationEffects.getRandom();
       do {
-        nextStartPosition = (int)random(0, _timeline.getLength());
+        nextStartPosition = (int)random(START_TIME_EFFECT, _timeline.getLength());
       } while (startPositionsList.indexOf(nextStartPosition) != -1);
       startPositionsList.add(nextStartPosition);
-      initAnimationActions(nextStartPosition,AnimationTargets.PANORAMA,AnimationEffects.ZOOM);
+
+      initAnimationActions(nextStartPosition, effectTarget, effect);
     }
   }
 

@@ -31,7 +31,9 @@ class Sun extends PanoramaElement {
     _pg.filter(BLUR, 5);
     _pg.filter(BLUR, 5);
     _pg.endDraw();
-    
+
     chromaticAbberation.applyEffectOn(_pg);
+    _ppp.addEffectToPipeline(AnimationEffects.FEEDBACK, new FeedbackEffect(_pg));
+    _ppp.addEffectToPipeline(AnimationEffects.ZOOM, new ZoomEffect(_pg));
   }
 }

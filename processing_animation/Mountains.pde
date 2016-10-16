@@ -77,5 +77,7 @@ class Mountains extends PanoramaElement {
     _pg.translate(-_relativeWidth/2, -_relativeHeight/2, 0);
     generateMesh();
     _pg.endDraw();
+    _ppp.addEffectToPipeline(AnimationEffects.FEEDBACK, new FeedbackEffect(_pg));
+    _ppp.addEffectToPipeline(AnimationEffects.ZOOM, new ZoomEffect(_pg));
   }
 }
