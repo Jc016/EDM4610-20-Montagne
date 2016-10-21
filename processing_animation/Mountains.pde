@@ -54,7 +54,6 @@ class Mountains extends PanoramaElement {
   private void init() {
     calculateSubdivisionsSize();
     generateHeightMap();
-    _ppp.addEffectToPipeline("mirror", new MirrorEffect());
   }
 
   public void calculateSubdivisionsSize() {
@@ -77,7 +76,8 @@ class Mountains extends PanoramaElement {
     _pg.translate(-_relativeWidth/2, -_relativeHeight/2, 0);
     generateMesh();
     _pg.endDraw();
+    _pg.beginDraw();
+    _pg.endDraw();
     _ppp.addEffectToPipeline(AnimationEffects.FEEDBACK, new FeedbackEffect(_pg));
-    _ppp.addEffectToPipeline(AnimationEffects.ZOOM, new ZoomEffect(_pg));
   }
 }

@@ -1,5 +1,5 @@
 class Sky extends PanoramaElement {
-  float SKY_PRECISION = 0.002;
+  float SKY_PRECISION = 0.001;
   color[][] _skyTexture;
   color _cloudColor;
   Sky(Panorama paronama, int w, int h, color c, color cloudColor) {
@@ -30,6 +30,5 @@ class Sky extends PanoramaElement {
     generateSky();
     _pg.endDraw();
     _ppp.addEffectToPipeline(AnimationEffects.FEEDBACK, new FeedbackEffect(_pg));   
-    _ppp.addEffectToPipeline(AnimationEffects.ZOOM, new ZoomEffect(_pg));
   }
 }

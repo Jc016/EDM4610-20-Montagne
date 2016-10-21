@@ -1,7 +1,7 @@
 MainAnimator _ma;
 ColorPalette cp;
 void setup() {
-  fullScreen(P3D,2);
+  fullScreen(P3D,1);
   frameRate(60);
   _ma= new MainAnimator(width,height);
 }

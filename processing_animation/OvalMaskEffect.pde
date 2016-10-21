@@ -2,12 +2,8 @@
 
 class OvalMaskEffect extends PostProcessEffect {
   PGraphics _bufferMask;
-  public void applyEffectOn(PGraphics context) {
-
-
-    PImage bufferImage = context.get();
+  OvalMaskEffect(PGraphics context) {
     int w = context.width, h = context.height;
-
     _bufferMask = createGraphics(w, h, P3D);
     _bufferMask.beginDraw();
     _bufferMask.noStroke();
@@ -15,6 +11,11 @@ class OvalMaskEffect extends PostProcessEffect {
     _bufferMask.fill(255);
     _bufferMask.ellipse(w/2, h/2, w, h);
     _bufferMask.endDraw();
+  }
+  public void applyEffectOn(PGraphics context) {
+
+
+    PImage bufferImage = context.get();
     context.beginDraw();
     context.clear();
     context.background(255);

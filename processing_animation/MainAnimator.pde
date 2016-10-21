@@ -67,14 +67,9 @@ class MainAnimator {
 
 
   public void display() {
-    _pg.beginDraw();
-    _pg.background(255);
-    _pg.noStroke();
-    _pg.tint(255, 90);
+
     _panorama.render();
-    _panorama.display(_pg);
-    _pg.endDraw();
-    image(_pg, 0, 0);
+    image(_panorama.getGraphics(), 0, 0);
   }
 
   private void initAnimationActions(int start, String target, String effect) {

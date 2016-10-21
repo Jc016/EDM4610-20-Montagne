@@ -13,29 +13,10 @@ class FeedbackEffect extends PostProcessEffect implements ITimelineAnimation {
     _h = c.height;
     _isActive =false;
     _hasDrawOriginal = false;
-    println(_pg);
   }
 
   public void applyEffectOn(PGraphics context) {
     if (_isActive) {
-      if (_hasDrawOriginal) {
-        int bpm = Timeline.getInstance().getBpm();
-        int loopCount = (bpm/Timeline.DEFAULT_SYSTEM_BPM + 1) * NUMBER_PASS;
-        for (int i = 0; i < loopCount; i ++) {
-          applyFeedback();
-        }
-      } else {
-        _pg = createGraphics(_w, _h, P3D);
-        _pg.beginDraw();
-        _pg.image(context, 0, 0);
-        _pg.endDraw();
-        _hasDrawOriginal =true;
-      }
-
-      context.beginDraw();
-      context.clear();
-      context.image(_pg.get(), 0, 0);
-      context.endDraw();
     }
   }
 

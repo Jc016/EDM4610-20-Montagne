@@ -18,30 +18,17 @@ public abstract class Renderer {
   public abstract void update();
   public abstract void render();
   public void display (PGraphics parent) {
-    PGraphics pipelineGraphic = getCopyGraphics();
-    _ppp.setPipelineTo(pipelineGraphic);
-    parent.image(pipelineGraphic.get(), 0, 0);
+   _ppp.setPipelineTo(_pg);
+    parent.image(_pg, 0, 0);
   }
 
 
   public PImage getImage() {
-    return _pg.get();
+    return _pg;
   }
 
   public PGraphics getGraphics() {
     return _pg;
-  }
-
-  public PGraphics getCopyGraphics() {
-
-    PGraphics copyGraphic = createGraphics(_width, _height, P3D);
-    copyGraphic.beginDraw();
-    _pg.loadPixels();
-    copyGraphic.loadPixels();
-    arrayCopy(_pg.pixels, copyGraphic.pixels);
-    copyGraphic.updatePixels();
-    copyGraphic.endDraw();
-    return copyGraphic;
   }
 
   public void updateAndDisplay() {

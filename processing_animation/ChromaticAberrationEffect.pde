@@ -4,7 +4,7 @@
 
 class ChromaticAberrationEffect extends PostProcessEffect {
   private final float COLOR_PIXELS_OFFSET = 30;
-  private final float ABBERRATION_CHANNELS_OPACITY = 30 ;
+  private final float ABBERRATION_CHANNELS_OPACITY = 50 ;
   private final float ABBERRATION_CHANNELS_SPEED = 0;
   private final color OVERLAY_COLOR = color(20);
 

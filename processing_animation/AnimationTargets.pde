@@ -5,7 +5,7 @@ static class AnimationTargets{
   public static  final String MOUNTAINS = "amoutains";
   public static  final String SKY="csky";
   
-  public static final String [] LIST = {PANORAMA,SUN,MOUNTAINS}; 
+  public static final String [] LIST = {SUN,MOUNTAINS}; 
   
   public static String getRandom(){
     Random r = new Random();
