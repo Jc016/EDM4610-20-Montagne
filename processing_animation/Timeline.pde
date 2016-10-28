@@ -51,7 +51,7 @@ public static  class Timeline
           _position += _positionSpeed;
           if (_listActions.containsKey((int)_position)) {
             AnimationAction aa =  _listActions.get((int)_position);
-            _ma.processAction(aa);
+           // _ma.processAction(aa);
             _listActions.remove(aa);
           }
         }

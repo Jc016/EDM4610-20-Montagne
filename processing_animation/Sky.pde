@@ -1,34 +1,47 @@
 class Sky extends PanoramaElement {
-  float SKY_PRECISION = 0.001;
-  color[][] _skyTexture;
   color _cloudColor;
   Sky(Panorama paronama, int w, int h, color c, color cloudColor) {
     super(paronama, w, h, c); 
     _cloudColor = cloudColor;
-    init();
   }
 
-  private void init() {
-    _skyTexture = new color[_width][_height];
-  }
 
   public void update() {
   }
-  private void generateSky() {
-    _pg.loadPixels();
-    noiseDetail(4);
-    for (int i = 0; i < _width; i ++) {
-      for (int j = 0; j< _height; j++) {
-        _pg.pixels[i+j*_width] = lerpColor(_c, _cloudColor, noise(i*SKY_PRECISION, j*SKY_PRECISION));
+
+  private PImage fetchFromFolder() {
+    PImage img;
+    File folder = new File(dataPath("sky"));
+    ArrayList<String> filteredFileNames = new ArrayList<String>();
+    String fileName = "";
+    if (folder != null) {
+      for (File file : folder.listFiles()) {
+        if (file.getName().endsWith(".jpg")) {
+          filteredFileNames.add(file.getName());
+        }
       }
+      int fileNum =(int)random(0, filteredFileNames.size());
+      fileName = dataPath("sky")+"/"+filteredFileNames.get(fileNum);
     }
-    _pg.updatePixels();
-  }
+    img =loadImage(fileName);
+    return img;
+  } 
 
   public void  render() {
-    _pg.beginDraw();  
-    generateSky();
+    PImage bufferImage =  fetchFromFolder();
+    PImage img = createImage(width, height, ARGB);
+    img= bufferImage.get((int)random(0, bufferImage.width - width), 0, width, height);
+
+
+    _pg.beginDraw();
+    _pg.translate(0, 0);
+    _pg.scale(2);
+    _pg.image(img, 0, 0);
+    _pg.pushStyle();
+    _pg.tint(_cloudColor, 100);
+    _pg.image(img, 0, 0);
+    _pg.popStyle();
     _pg.endDraw();
-    _ppp.addEffectToPipeline(AnimationEffects.FEEDBACK, new FeedbackEffect(_pg));   
+    _ppp.addEffectToPipeline(AnimationEffects.FEEDBACK, new FeedbackEffect(_pg));
   }
 }

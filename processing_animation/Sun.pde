@@ -25,7 +25,8 @@ class Sun extends PanoramaElement {
     _pg.beginDraw();
     _pg.noStroke();
     _pg.fill(_c);
-    _pg.noStroke();
+    _pg.stroke(25);
+    _pg.strokeWeight(10);
     _pg.translate(_position.x, _position.y);
     _pg.ellipse(0, 0, _radius, _radius); 
     _pg.filter(BLUR, 5);

@@ -15,14 +15,14 @@ class OvalMaskEffect extends PostProcessEffect {
   public void applyEffectOn(PGraphics context) {
 
 
-    PImage bufferImage = context.get();
+    /*PImage bufferImage = context.get();
     context.beginDraw();
     context.clear();
     context.background(255);
     context.noStroke();
     bufferImage.mask(_bufferMask);
     context.image(bufferImage, 0, 0);
-    context.endDraw();
+    context.endDraw();*/
   }
 
   public void begin() {

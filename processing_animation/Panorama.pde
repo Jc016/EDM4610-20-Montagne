@@ -17,7 +17,8 @@ class Panorama extends Renderer {
     _skyColor = _colorPalette.fetchRandomColor();
     _panoramaElements = new HashMap<String, Renderer>();
     _panoramaElements.put(AnimationTargets.SKY, new Sky(this, _pg.width, _pg.height, _skyColor, _colorPalette.fetchRandomColor()));
-    _panoramaElements.put(AnimationTargets.SUN, new Sun(this, _pg.width, _pg.height, _sunColor));
+   // _panoramaElements.put(AnimationTargets.SUN, new Sun(this, _pg.width, _pg.height, _sunColor));
+
     _panoramaElements.put(AnimationTargets.MOUNTAINS, new Mountains(this, _pg.width, _pg.height, _colorPalette.fetchRandomColor(), _sunColor, _skyColor));
     _ppp.addEffectToPipeline("Oval Mask", new OvalMaskEffect(_pg));
 
