@@ -2,7 +2,7 @@ import java.util.*;
 import java.math.*;
 public static  class Timeline
 {
-  private final float MINUTE_DURATION = 60;
+  private final float MINUTE_DURATION = 60000;
   public static final int DEFAULT_SYSTEM_BPM = 60;
   private float _position =0;
   private int _bpm = DEFAULT_SYSTEM_BPM;
@@ -43,28 +43,22 @@ public static  class Timeline
 
   public void begin() {
     if (!_isPlaying) {
+      println("timerStarted");
       _isPlaying = true;
       _timer = new Timer();
       _timerTask =  new TimerTask() {  
         @Override
           public void run() {
-          _position += _positionSpeed;
-          if (_listActions.containsKey((int)_position)) {
-            AnimationAction aa =  _listActions.get((int)_position);
-           // _ma.processAction(aa);
-            _listActions.remove(aa);
-          }
+           _ma.processTick();
         }
       };
-      _timer.scheduleAtFixedRate(_timerTask, (long)0, (long)(MINUTE_DURATION/_bpm * 1000));
+      _timer.scheduleAtFixedRate(_timerTask, (long)0, (long)(MINUTE_DURATION));
     }
   }
 
   public void setNewBpm(int bpm) {
     end();
-    _oldBpm = _bpm;
     _bpm = bpm;
-    scaleToNewSettings();
     begin();
   }
   public int getBpm() {
@@ -96,10 +90,8 @@ public static  class Timeline
   }
 
   public void reset() {
-    end();
     _instance = new Timeline();
     init();
-    begin();
   }
 
   private void init() {

@@ -58,10 +58,9 @@ class Mountains extends PanoramaElement {
     _pg.translate(0, height - 600);
     _pg.image(img, 0, 0);
     _pg.pushStyle();
-    _pg.tint(_skyColor, 100);
+    _pg.tint(_skyColor, 200);
     _pg.image(img, 0, 0);
     _pg.popStyle();
     _pg.endDraw();
-    _ppp.addEffectToPipeline(AnimationEffects.FEEDBACK, new FeedbackEffect(_pg));
   }
 }

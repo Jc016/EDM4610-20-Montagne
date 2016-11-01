@@ -1,13 +1,12 @@
 public abstract class Renderer {
 
   protected PGraphics _pg;
-  protected PostProcessPipeline _ppp;
+
 
   int _width, _height;
   Renderer(int w, int h) {
     _width =w;
     _height = h;
-    _ppp = new PostProcessPipeline();
     clear();
   }
 
@@ -18,7 +17,6 @@ public abstract class Renderer {
   public abstract void update();
   public abstract void render();
   public void display (PGraphics parent) {
-   _ppp.setPipelineTo(_pg);
     parent.image(_pg, 0, 0);
   }
 

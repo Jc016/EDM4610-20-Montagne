@@ -13,7 +13,4 @@ class PanoramaElement extends Renderer {
   public void render() {
   }
 
-  public void processAction(AnimationAction animationAction) {
-    _ppp.getEffect(animationAction.getEffect()).processState(animationAction.getState());
-  }
 }

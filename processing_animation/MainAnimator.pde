@@ -12,6 +12,8 @@ class MainAnimator {
   Panorama _panorama;
   int _w, _h;
   Timeline _timeline;
+  Esprit _esprit;
+  int _opacity;
 
 
 
@@ -27,55 +29,48 @@ class MainAnimator {
   public void reset() {
     background(0);
     _pg = createGraphics(_w, _h);
+    _opacity = 255;
     _panorama = new Panorama(_w, _h);
+    _esprit= new Esprit();
     if (_timeline == null) {
       _timeline = Timeline.getInstance();
       _timeline.setMainAnimator(this);
     } else {
       _timeline.reset();
     }
-    generateEffects();
-    _timeline.setNewBpm(180);
+    _timeline.setNewBpm(60);
   }
 
 
   public void update() {
+    _esprit.update();
     if (_timeline.getPosition() > _timeline.getLength()) {
       reset();
     }
   }
 
-  public void processAction(AnimationAction animationAction) {
-    _panorama.processAction(animationAction);
+  public void processTick() {
+    _opacity *= 0.9;
+    _esprit.receiveTick();
+    println(millis());
   }
 
-  public void generateEffects() {
-    int count = (int)random(MIN_OCCURENCES_ANIMATIONS, MAX_OCCURENCES_ANIMATIONS);
-    ArrayList<Integer> startPositionsList = new ArrayList<Integer>();
-    int nextStartPosition = -1;
-    for (int i = 0; i < count; i++) {
-      String effectTarget = AnimationTargets.getRandom();
-      String  effect =  AnimationEffects.getRandom();
-      do {
-        nextStartPosition = (int)random(START_TIME_EFFECT, _timeline.getLength());
-      } while (startPositionsList.indexOf(nextStartPosition) != -1);
-      startPositionsList.add(nextStartPosition);
-
-      initAnimationActions(nextStartPosition, effectTarget, effect);
+  public void setBpm(int bpm) {
+    if (bpm != _timeline.getBpm()) {
+      _timeline.setNewBpm(bpm);
     }
   }
 
 
   public void display() {
-
     _panorama.render();
+    pushStyle();
+    tint(255, _opacity);
     image(_panorama.getGraphics(), 0, 0);
+    popStyle();
+    image(_esprit.getContext().get(), 0, 0);
   }
 
-  private void initAnimationActions(int start, String target, String effect) {
-    _timeline.addAction(start, new AnimationAction(target, effect, true));
-    _timeline.addAction(start + (int)random(MIN_ACTION_DURATION, MAX_ACTION_DURATION), new AnimationAction(target, effect, false));
-  }
 
   public void updateAndDisplay() {
     update();
