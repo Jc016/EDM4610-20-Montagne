@@ -29,7 +29,7 @@ int tempo;
 ////////////
 void setup() {
   fullScreen(P3D, 1);
-  frameRate(24);
+  frameRate(60);
   tempo = 30;
   _ma= new MainAnimator(width, height);
   monOSC =new OscP5(this,54545);

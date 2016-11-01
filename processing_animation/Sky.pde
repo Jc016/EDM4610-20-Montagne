@@ -25,7 +25,8 @@ class Sky extends PanoramaElement {
     }
     img =loadImage(fileName);
     return img;
-  } 
+  }
+  
 
   public void  render() {
     PImage bufferImage =  fetchFromFolder();
@@ -33,10 +34,10 @@ class Sky extends PanoramaElement {
     img= bufferImage.get((int)random(0, bufferImage.width - width), 0, width, height);
     _pg.beginDraw();
     _pg.translate(0, 0);
-    _pg.scale(2);
+    _pg.scale(1);
     _pg.image(img, 0, 0);
     _pg.pushStyle();
-    _pg.tint(_cloudColor, 200);
+    _pg.tint(_cloudColor, 100);
     _pg.image(img, 0, 0);
     _pg.popStyle();
     _pg.endDraw();

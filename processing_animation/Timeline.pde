@@ -2,7 +2,7 @@ import java.util.*;
 import java.math.*;
 public static  class Timeline
 {
-  private final float MINUTE_DURATION = 60000;
+  public final float MINUTE_DURATION = 60000;
   public static final int DEFAULT_SYSTEM_BPM = 60;
   private float _position =0;
   private int _bpm = DEFAULT_SYSTEM_BPM;
@@ -53,7 +53,7 @@ public static  class Timeline
            _position ++;
         }
       };
-      _timer.scheduleAtFixedRate(_timerTask, (long)0, (long)(MINUTE_DURATION)/_bpm);
+      _timer.scheduleAtFixedRate(_timerTask, (long)0, (long)(_bpm > 0 ? MINUTE_DURATION/_bpm:MINUTE_DURATION));
     }
   }
 
@@ -73,14 +73,13 @@ public static  class Timeline
   public float getPosition(){
     return _position;
   }
-
   private void scaleToNewSettings() {
     //float scaleFactor = (float)_bpm / (float) _oldBpm;
     end();
     _positionSpeed =  1 ;
     // _length *= scaleFactor;
     begin();
-  }
+  } 
 
   public void end() {
     if (_isPlaying) {

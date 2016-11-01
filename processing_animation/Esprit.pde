@@ -26,8 +26,11 @@ class Esprit {
   //================================= SETUP ==========================================
   //==================================================================================
   PGraphics _pg;
+  int _currentEmotion = EspritEmotion.NORMAL;
+  PImage[] _states;
   Esprit() {
     _pg= createGraphics(width, height, P2D);
+    _states = new PImage[3];
     /////////////////// Appel des agents ////////////////////////
     for (int i=0; i<agents.length; i++) {                      //  
       agents[i] = new Agent();                                 //
@@ -85,12 +88,12 @@ class Esprit {
 
     strokeWidth = 1.5 + pulsionG; // La grosseur des traits est additionnée de la variable pulsionG
     if (pulsionG >= 0) { // Si la variable pulsionG est plus grand ou égale à zéro
-      pulsionG -= 0.2; // On la fait diminué de 0.1 à chaque «frame»
+      pulsionG -= 0.5; // On la fait diminué de 0.1 à chaque «frame»
     }
 
     noiseStrength = 10 + pulsionF; // La direction du noise des traits est additionnée de la variable pulsionF
     if (pulsionF >= 0) { // Si la variable pulsionF est plus grand ou égale à zéro
-      pulsionF -= 12; // On la fait diminué de 9 à chaque «frame»
+      pulsionF -= 6; // On la fait diminué de 9 à chaque «frame»
     }
   }
   PGraphics getContext() {
@@ -117,7 +120,7 @@ class Esprit {
 
   void receiveTick() {
     if (pulsionG < 1) { // Si la variable pulsionG est plus petite que 1     //
-      pulsionG += 1; // On l'additionne de 1                                 //
+      pulsionG += 2 ; // On l'additionne de 1                                 //
     }                                                                        //  
     if (pulsionF < 100) { // Si la variable pulsionF est plus petite que 100 //
       pulsionF += 200; // On l'additionne de 100                             //

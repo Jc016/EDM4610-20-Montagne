@@ -20,6 +20,7 @@ class MainAnimator {
   MainAnimator(int w, int h) {
     _w =w;
     _h =h;
+    _esprit= new Esprit();
     reset();
   }
 
@@ -31,7 +32,7 @@ class MainAnimator {
     _pg = createGraphics(_w, _h);
     _opacity = 255;
     _panorama = new Panorama(_w, _h);
-    _esprit= new Esprit();
+    _panorama.render();
     if (_timeline == null) {
       _timeline = Timeline.getInstance();
       _timeline.setMainAnimator(this);
@@ -56,23 +57,21 @@ class MainAnimator {
 
   public void setBpm(int bpm) {
     if (bpm != _timeline.getBpm() ) {
-      bpm = bpm  > 0 ? bpm:1;
       _timeline.setNewBpm(bpm);
     }
   }
 
 
   public void display() {
-    _panorama.render();
+    _panorama.display();
     pushStyle();
     tint(255, _opacity);
     image(_panorama.getGraphics(), 0, 0);
     popStyle();
     pushMatrix();
-    translate(0,-100);
+    translate(0, -100);
     image(_esprit.getContext().get(), 0, 0);
     popMatrix();
-    
   }
 
 

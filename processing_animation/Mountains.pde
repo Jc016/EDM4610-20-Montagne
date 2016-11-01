@@ -55,14 +55,13 @@ class Mountains extends PanoramaElement {
 
 
     _pg.beginDraw();
-    _pg.translate(0, height - 900);
-    _pg.scale(1.5);
+    _pg.translate(0, height - 650);
+    _pg.scale(1.1);
     _pg.image(img, 0, 0);
     _pg.pushStyle();
     _pg.tint(_skyColor, 200);
     _pg.image(img, 0, 0);
     _pg.popStyle();
-    println("mountain trnder");
     _pg.endDraw();
   }
 }

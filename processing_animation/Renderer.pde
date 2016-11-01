@@ -25,6 +25,7 @@ public abstract class Renderer {
   public PImage getImage() {
     return _pg;
   }
+  
 
   public PGraphics getGraphics() {
     return _pg;

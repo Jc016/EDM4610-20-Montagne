@@ -7,6 +7,7 @@ class PanoramaElement extends Renderer {
     _paronama =paronama;
   }
 
+
   public void update() {
   }
 
