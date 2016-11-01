@@ -7,7 +7,7 @@ public static  class Timeline
   private float _position =0;
   private int _bpm = DEFAULT_SYSTEM_BPM;
   private int _oldBpm = DEFAULT_SYSTEM_BPM;
-  private int  _length = 180;
+  private int  _length = 100;
   private float _positionSpeed =  MINUTE_DURATION/ _bpm ;
   private MainAnimator _ma = null;
   private Timer _timer;
@@ -43,16 +43,17 @@ public static  class Timeline
 
   public void begin() {
     if (!_isPlaying) {
-      println("timerStarted");
+
       _isPlaying = true;
       _timer = new Timer();
       _timerTask =  new TimerTask() {  
         @Override
           public void run() {
            _ma.processTick();
+           _position ++;
         }
       };
-      _timer.scheduleAtFixedRate(_timerTask, (long)0, (long)(MINUTE_DURATION));
+      _timer.scheduleAtFixedRate(_timerTask, (long)0, (long)(MINUTE_DURATION)/_bpm);
     }
   }
 

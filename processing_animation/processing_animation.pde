@@ -20,19 +20,19 @@ int tempo;
   ///// Déclaration des variables de la classe «Agent» ///////
   ///////// ATTENTION PROVIENT DE DESIGN GENERATIF ///////////
   //////////////// NON RÉALISÉ PAR L'ÉlÈVE ///////////////////
-  Agent[] agents = new Agent[10000];                        //
+  Agent[] agents = new Agent[2500];                        //
   int agentsCount = 2500;                                   // 
   float noiseScale = 300, noiseStrength;                    //
-  float overlayAlpha = 0, agentsAlpha = 90, strokeWidth;    //
+  float overlayAlpha = 0, agentsAlpha = 100, strokeWidth;    //
   int drawMode = 1;                                         // 
   ////////////////////////////////////////////////////////////
 ////////////
 void setup() {
   fullScreen(P3D, 1);
   frameRate(24);
+  tempo = 30;
   _ma= new MainAnimator(width, height);
-  monOSC = new OscP5(this, 54000);
-  tempo = ;
+  monOSC =new OscP5(this,54545);
 }
 
 void draw() {
@@ -47,7 +47,7 @@ void keyPressed() {
     _ma.reset();
     break;
   case 'm':  
-
+    _ma.processTick();
     break;
   }
 }
@@ -56,6 +56,7 @@ void keyPressed() {
 void oscEvent(OscMessage leOscMessage) {
   if (leOscMessage.addrPattern().equals("/r")) {
     tempo = (int)leOscMessage.get(0).floatValue();
-    //_ma.setBpm((int)tempo);
+    println(tempo);
+    _ma.setBpm(tempo);
   }
 }

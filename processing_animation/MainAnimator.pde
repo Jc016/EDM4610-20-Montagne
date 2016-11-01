@@ -50,13 +50,13 @@ class MainAnimator {
   }
 
   public void processTick() {
-    _opacity *= 0.9;
+    _panorama.receivedTick();
     _esprit.receiveTick();
-    println(millis());
   }
 
   public void setBpm(int bpm) {
-    if (bpm != _timeline.getBpm()) {
+    if (bpm != _timeline.getBpm() ) {
+      bpm = bpm  > 0 ? bpm:1;
       _timeline.setNewBpm(bpm);
     }
   }
@@ -68,7 +68,11 @@ class MainAnimator {
     tint(255, _opacity);
     image(_panorama.getGraphics(), 0, 0);
     popStyle();
+    pushMatrix();
+    translate(0,-100);
     image(_esprit.getContext().get(), 0, 0);
+    popMatrix();
+    
   }
 
 

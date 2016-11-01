@@ -1,6 +1,7 @@
 public abstract class Renderer {
 
   protected PGraphics _pg;
+  boolean rendered = false;
 
 
   int _width, _height;

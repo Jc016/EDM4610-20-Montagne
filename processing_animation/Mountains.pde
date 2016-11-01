@@ -50,17 +50,19 @@ class Mountains extends PanoramaElement {
 
   public void render() {
     PImage bufferImage =  fetchFromFolder();
-    PImage img = createImage(width,height,ARGB);
-    img = bufferImage.get((int)random(0,bufferImage.width - width),0,width,height);
-    
-    
+    PImage img = createImage(width, height, ARGB);
+    img = bufferImage.get((int)random(0, bufferImage.width - width), 0, width, height);
+
+
     _pg.beginDraw();
-    _pg.translate(0, height - 600);
+    _pg.translate(0, height - 900);
+    _pg.scale(1.5);
     _pg.image(img, 0, 0);
     _pg.pushStyle();
     _pg.tint(_skyColor, 200);
     _pg.image(img, 0, 0);
     _pg.popStyle();
+    println("mountain trnder");
     _pg.endDraw();
   }
 }
