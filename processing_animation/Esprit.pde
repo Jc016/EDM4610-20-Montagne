@@ -25,24 +25,50 @@ class Esprit {
   //==================================================================================
   //================================= SETUP ==========================================
   //==================================================================================
+  final int TEMPERAMENT_MAX = 30;
+  int _temperament = TEMPERAMENT_MAX;
+  int _currentState = EspritEmotion.NORMAL;
+  PImage [] _states;
   PGraphics _pg;
-  int _currentEmotion = EspritEmotion.NORMAL;
-  PImage[] _states;
+  boolean _mustTick;
   Esprit() {
-    _pg= createGraphics(width, height, P2D);
     _states = new PImage[3];
+    preloadImages();
+    _pg= createGraphics(width, height, P2D);
     /////////////////// Appel des agents ////////////////////////
     for (int i=0; i<agents.length; i++) {                      //  
       agents[i] = new Agent();                                 //
     }////////////////////////////////////////////////////////////
 
+    _mustTick = false;
+
     // Image réalisé par Gabrielle Martineau, Étudiante du Baccalauréat en communication (médias interactifs)
     _pg.imageMode(CENTER); // La photo sera centrée
-    photo = loadImage("spirit/esprit1.tga");
-    copiePhoto = loadImage("spirit/esprit1.tga"); // On va cherche la photo voulue
+    setToState(EspritEmotion.NORMAL);
 
     alphaArray = new int[photo.width*photo.height];
-  }  
+  }
+
+  public void receiveTick() {
+    _mustTick = true;
+  }
+
+  void tryToBeAngry() {
+    if (random(TEMPERAMENT_MAX) <TEMPERAMENT_MAX/2) {
+      setToState(EspritEmotion.ANGRY);
+    }
+    _temperament --;
+    if (_temperament < 1) {
+      _temperament = (int)random(TEMPERAMENT_MAX);
+    }
+  }
+
+  void preloadImages() {
+    println("preload");
+    for (int i = 0; i < 3; i ++) {
+      _states[i] =loadImage("spirit/esprit"+(i+1)+".tga");
+    }
+  }
 
   //==================================================================================
   //=========================== INITIATION DU MASQUE =================================
@@ -56,6 +82,10 @@ class Esprit {
   //==================================================================================
   void update() {
     //background(couleur, overlayAlpha); // Couleur du par dessus l'image
+    if (_mustTick) {
+      processTick();
+      _mustTick = false;
+    }
 
 
     if (copiePhoto.width>1) { // Si la copie de la photo est plus grande que 1
@@ -80,6 +110,11 @@ class Esprit {
       //img.mask(pg); // On applique un masque du Pgraphics sur la photo 
       _pg.beginDraw();
       _pg.clear();
+      if (_currentState == EspritEmotion.ANGRY) {
+        _pg.tint(color(random(140, 200), 40, 40), 255);
+      } else if (_currentState == EspritEmotion.NORMAL) {
+        _pg.tint(255, 255);
+      }
       _pg.image(photo, width/2, height/2); // On appel la photo et on la place
       _pg.endDraw();
     }
@@ -88,17 +123,32 @@ class Esprit {
 
     strokeWidth = 1.5 + pulsionG; // La grosseur des traits est additionnée de la variable pulsionG
     if (pulsionG >= 0) { // Si la variable pulsionG est plus grand ou égale à zéro
-      pulsionG -= 0.5; // On la fait diminué de 0.1 à chaque «frame»
+
+      if (_currentState == EspritEmotion.ANGRY) {
+        pulsionG -=0.01;
+      } else {
+        pulsionG -= 0.3;
+      }
     }
+
 
     noiseStrength = 10 + pulsionF; // La direction du noise des traits est additionnée de la variable pulsionF
     if (pulsionF >= 0) { // Si la variable pulsionF est plus grand ou égale à zéro
-      pulsionF -= 6; // On la fait diminué de 9 à chaque «frame»
+
+      if (_currentState == EspritEmotion.ANGRY) {
+        pulsionF -=1;
+      } else {
+        pulsionF -= 0.2;
+      }
     }
   }
   PGraphics getContext() {
     return _pg;
   } 
+
+  int getState() {
+    return _currentState;
+  }
   //==================================================================================
   //============================ UPDATE DU PGRAPHICS =================================
   //==================================================================================
@@ -118,14 +168,28 @@ class Esprit {
     pg.endDraw(); // ON FINIT DE DESSINER LE PGRAPHICS --------------------->
   }
 
-  void receiveTick() {
+  void processTick() {
+    if (random(0, TEMPERAMENT_MAX) > _temperament) {
+      setToState(EspritEmotion.NORMAL);
+    }
     if (pulsionG < 1) { // Si la variable pulsionG est plus petite que 1     //
-      pulsionG += 2 ; // On l'additionne de 1                                 //
+
+      if (_currentState == EspritEmotion.ANGRY) {
+        pulsionG += 6;
+      } else {
+        pulsionG += 2 ; // On l'additionne de 1
+      }
     }                                                                        //  
     if (pulsionF < 100) { // Si la variable pulsionF est plus petite que 100 //
       pulsionF += 200; // On l'additionne de 100                             //
     }                                                                        //
     noiseScale = random(300, 1000); // On position le
+  }
+
+  void setToState(int state) {
+    _currentState = state;
+    photo = _states[state].copy();
+    copiePhoto =  _states[state].copy();
   }
 
   //==================================================================================

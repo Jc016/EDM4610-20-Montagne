@@ -7,7 +7,7 @@ public static  class Timeline
   private float _position =0;
   private int _bpm = DEFAULT_SYSTEM_BPM;
   private int _oldBpm = DEFAULT_SYSTEM_BPM;
-  private int  _length = 100;
+  private int  _length = 30;
   private float _positionSpeed =  MINUTE_DURATION/ _bpm ;
   private MainAnimator _ma = null;
   private Timer _timer;
@@ -99,7 +99,6 @@ public static  class Timeline
     _position = 0;
     _bpm = 60;
     _oldBpm = _bpm;
-    _length = 60;
     _r = new Random();
     _isPlaying = false;
   }

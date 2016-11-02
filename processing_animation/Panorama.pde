@@ -29,7 +29,7 @@ class Panorama extends Renderer {
   }
 
   public void processTick() {
-    if (rendered) {
+    if (_mustTick) {
       int x1 = (int) random(0, _pg.width);
       int y1 = 0;
 
@@ -39,6 +39,7 @@ class Panorama extends Renderer {
       int w = (int) random(35, 50);
       int h = _pg.height;
       _pg.copy(x1, y1, w, h, x2, y2, w, h);
+      _mustTick = false;
     }
   }
 

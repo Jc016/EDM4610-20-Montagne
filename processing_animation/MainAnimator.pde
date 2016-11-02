@@ -39,18 +39,21 @@ class MainAnimator {
     } else {
       _timeline.reset();
     }
-    _timeline.setNewBpm(60);
+    _timeline.setNewBpm(40);
   }
 
 
   public void update() {
+
     _esprit.update();
     if (_timeline.getPosition() > _timeline.getLength()) {
+      _esprit.tryToBeAngry();
       reset();
     }
   }
 
   public void processTick() {
+    _timeline.getBpm();
     _panorama.receivedTick();
     _esprit.receiveTick();
   }
@@ -58,6 +61,7 @@ class MainAnimator {
   public void setBpm(int bpm) {
     if (bpm != _timeline.getBpm() ) {
       _timeline.setNewBpm(bpm);
+      _esprit.tryToBeAngry();
     }
   }
 
@@ -76,6 +80,10 @@ class MainAnimator {
 
 
   public void updateAndDisplay() {
+
+    if (_esprit.getState() == EspritEmotion.ANGRY) {
+      _panorama.receivedTick();
+    }
     update();
     display();
   }

@@ -6,33 +6,33 @@ ColorPalette cp;
 int tempo;
 
 ////////////
-  PImage photo, copiePhoto, ciel; // Déclaration de la photo ainsi que de sa copie
-  PGraphics pg; // Déclaration de la variable pour le PGraphics
-  boolean chargement = false; // Déclaration de la variable de chargement de la copie de la photo
-  float pulsionG = 0, pulsionF = 0; // Déclaration des variables qui font changer la taille et la direction des traits
-  float incrementationG = 0; // Déclaration de l'incrémentation globale (Sert à calculer le nombre de pulsion reçu)
-  color couleur = 255; // Déclaration de la variables qui inverse les noirs et blancs
+PImage photo, copiePhoto, ciel; // Déclaration de la photo ainsi que de sa copie
+PGraphics pg; // Déclaration de la variable pour le PGraphics
+boolean chargement = false; // Déclaration de la variable de chargement de la copie de la photo
+float pulsionG = 0, pulsionF = 0; // Déclaration des variables qui font changer la taille et la direction des traits
+float incrementationG = 0; // Déclaration de l'incrémentation globale (Sert à calculer le nombre de pulsion reçu)
+color couleur = 255; // Déclaration de la variables qui inverse les noirs et blancs
 
-  int [] alphaArray;
-  PImage copyArray;
+int [] alphaArray;
+PImage copyArray;
 
 
-  ///// Déclaration des variables de la classe «Agent» ///////
-  ///////// ATTENTION PROVIENT DE DESIGN GENERATIF ///////////
-  //////////////// NON RÉALISÉ PAR L'ÉlÈVE ///////////////////
-  Agent[] agents = new Agent[2500];                        //
-  int agentsCount = 2500;                                   // 
-  float noiseScale = 300, noiseStrength;                    //
-  float overlayAlpha = 0, agentsAlpha = 100, strokeWidth;    //
-  int drawMode = 1;                                         // 
-  ////////////////////////////////////////////////////////////
+///// Déclaration des variables de la classe «Agent» ///////
+///////// ATTENTION PROVIENT DE DESIGN GENERATIF ///////////
+//////////////// NON RÉALISÉ PAR L'ÉlÈVE ///////////////////
+Agent[] agents = new Agent[2500];                        //
+int agentsCount = 2500;                                   // 
+float noiseScale = 300, noiseStrength;                    //
+float overlayAlpha = 0, agentsAlpha = 100, strokeWidth;    //
+int drawMode = 1;                                         // 
+////////////////////////////////////////////////////////////
 ////////////
 void setup() {
   fullScreen(P3D, 1);
-  frameRate(60);
+  frameRate(24);
   tempo = 30;
   _ma= new MainAnimator(width, height);
-  monOSC =new OscP5(this,54545);
+  monOSC =new OscP5(this, 54545);
 }
 
 void draw() {
@@ -49,6 +49,10 @@ void keyPressed() {
   case 'm':  
     _ma.processTick();
     break;
+
+  case 'b':
+  _ma.setBpm((int)random(10,90));
+  break;
   }
 }
 
