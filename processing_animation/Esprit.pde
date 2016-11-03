@@ -25,7 +25,7 @@ class Esprit {
   //==================================================================================
   //================================= SETUP ==========================================
   //==================================================================================
-  final int TEMPERAMENT_MAX = 30;
+  final int TEMPERAMENT_MAX = 10;
   int _temperament = TEMPERAMENT_MAX;
   int _currentState = EspritEmotion.NORMAL;
   PImage [] _states;
@@ -44,7 +44,7 @@ class Esprit {
 
     // Image réalisé par Gabrielle Martineau, Étudiante du Baccalauréat en communication (médias interactifs)
     _pg.imageMode(CENTER); // La photo sera centrée
-    setToState(EspritEmotion.NORMAL);
+    setToState(EspritEmotion.ANGRY);
 
     alphaArray = new int[photo.width*photo.height];
   }
@@ -54,8 +54,13 @@ class Esprit {
   }
 
   void tryToBeAngry() {
-    if (random(TEMPERAMENT_MAX) <TEMPERAMENT_MAX/2) {
+    print("test");
+    
+    int temperement =(int)random(_temperament);
+
+    if (temperement <TEMPERAMENT_MAX) {
       setToState(EspritEmotion.ANGRY);
+          println(temperement);
     }
     _temperament --;
     if (_temperament < 1) {
