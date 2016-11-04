@@ -1,13 +1,6 @@
 class MainAnimator {
 
 
-  //Class global variables
-  private final float MIN_ACTION_DURATION = 3;
-  private final float MAX_ACTION_DURATION = 15;
-  private final int MIN_OCCURENCES_ANIMATIONS = 20;
-  private final int MAX_OCCURENCES_ANIMATIONS = 30;
-  private final int START_TIME_EFFECT = 6;
-
   PGraphics _pg;
   Panorama _panorama;
   int _w, _h;
@@ -20,6 +13,7 @@ class MainAnimator {
   MainAnimator(int w, int h) {
     _w =w;
     _h =h;
+    _timeline = new Timeline(this);
     _esprit= new Esprit();
     reset();
   }
@@ -33,13 +27,7 @@ class MainAnimator {
     _opacity = 255;
     _panorama = new Panorama(_w, _h);
     _panorama.render();
-    if (_timeline == null) {
-      _timeline = Timeline.getInstance();
-      _timeline.setMainAnimator(this);
-    } else {
-      _timeline.reset();
-    }
-    _timeline.setNewBpm(40);
+    _timeline.setNewBpm(90);
   }
 
 
@@ -53,13 +41,14 @@ class MainAnimator {
   }
 
   public void processTick() {
-    _timeline.getBpm();
+   println( _timeline.getBpm());
     _panorama.receivedTick();
     _esprit.receiveTick();
   }
 
   public void setBpm(int bpm) {
     if (bpm != _timeline.getBpm() ) {
+      println("changing bom");
       _timeline.setNewBpm(bpm);
       _esprit.tryToBeAngry();
     }
@@ -74,13 +63,16 @@ class MainAnimator {
     popStyle();
     pushMatrix();
     translate(0, -100);
+    pushStyle();
+    tint(255,180);
     image(_esprit.getContext().get(), 0, 0);
+    popStyle();
     popMatrix();
   }
 
 
   public void updateAndDisplay() {
-
+    _timeline.processTimer();
     if (_esprit.getState() == EspritEmotion.ANGRY) {
       _panorama.receivedTick();
     }

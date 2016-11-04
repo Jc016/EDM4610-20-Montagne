@@ -26,7 +26,7 @@ class Esprit {
   //================================= SETUP ==========================================
   //==================================================================================
   final int TEMPERAMENT_MAX = 10;
-  int _temperament = TEMPERAMENT_MAX;
+  int _temperament = TEMPERAMENT_MAX*2;
   int _currentState = EspritEmotion.NORMAL;
   PImage [] _states;
   PGraphics _pg;
@@ -44,7 +44,7 @@ class Esprit {
 
     // Image réalisé par Gabrielle Martineau, Étudiante du Baccalauréat en communication (médias interactifs)
     _pg.imageMode(CENTER); // La photo sera centrée
-    setToState(EspritEmotion.ANGRY);
+    setToState(EspritEmotion.NORMAL);
 
     alphaArray = new int[photo.width*photo.height];
   }
@@ -54,13 +54,12 @@ class Esprit {
   }
 
   void tryToBeAngry() {
-    print("test");
-    
-    int temperement =(int)random(_temperament);
 
+    
+    int temperement =(int)random(_temperament /2,_temperament);
     if (temperement <TEMPERAMENT_MAX) {
-      setToState(EspritEmotion.ANGRY);
-          println(temperement);
+     setToState(EspritEmotion.ANGRY);
+
     }
     _temperament --;
     if (_temperament < 1) {
@@ -69,7 +68,6 @@ class Esprit {
   }
 
   void preloadImages() {
-    println("preload");
     for (int i = 0; i < 3; i ++) {
       _states[i] =loadImage("spirit/esprit"+(i+1)+".tga");
     }
@@ -126,7 +124,7 @@ class Esprit {
 
 
 
-    strokeWidth = 1.5 + pulsionG; // La grosseur des traits est additionnée de la variable pulsionG
+    strokeWidth = 1 + pulsionG; // La grosseur des traits est additionnée de la variable pulsionG
     if (pulsionG >= 0) { // Si la variable pulsionG est plus grand ou égale à zéro
 
       if (_currentState == EspritEmotion.ANGRY) {
@@ -143,7 +141,7 @@ class Esprit {
       if (_currentState == EspritEmotion.ANGRY) {
         pulsionF -=1;
       } else {
-        pulsionF -= 0.2;
+        pulsionF -= 0.07;
       }
     }
   }
@@ -174,21 +172,22 @@ class Esprit {
   }
 
   void processTick() {
-    if (random(0, TEMPERAMENT_MAX) > _temperament) {
+    if (random(0, 15) > 13) {
       setToState(EspritEmotion.NORMAL);
+      _temperament = (int)random(TEMPERAMENT_MAX,TEMPERAMENT_MAX*2);
     }
     if (pulsionG < 1) { // Si la variable pulsionG est plus petite que 1     //
 
       if (_currentState == EspritEmotion.ANGRY) {
         pulsionG += 6;
       } else {
-        pulsionG += 2 ; // On l'additionne de 1
+        pulsionG += 4 ; // On l'additionne de 1
       }
     }                                                                        //  
     if (pulsionF < 100) { // Si la variable pulsionF est plus petite que 100 //
-      pulsionF += 200; // On l'additionne de 100                             //
+      pulsionF += 400; // On l'additionne de 100                             //
     }                                                                        //
-    noiseScale = random(300, 1000); // On position le
+    noiseScale = random(300, 10000); // On position le
   }
 
   void setToState(int state) {

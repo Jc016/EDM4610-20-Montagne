@@ -20,8 +20,9 @@ PImage copyArray;
 ///// Déclaration des variables de la classe «Agent» ///////
 ///////// ATTENTION PROVIENT DE DESIGN GENERATIF ///////////
 //////////////// NON RÉALISÉ PAR L'ÉlÈVE ///////////////////
-Agent[] agents = new Agent[2500];                        //
-int agentsCount = 2500;                                   // 
+int agentsCount = 3000; 
+Agent[] agents = new Agent[agentsCount];                        //
+                                  // 
 float noiseScale = 300, noiseStrength;                    //
 float overlayAlpha = 0, agentsAlpha = 100, strokeWidth;    //
 int drawMode = 1;                                         // 
@@ -29,8 +30,8 @@ int drawMode = 1;                                         //
 ////////////
 void setup() {
   fullScreen(P3D, 1);
-  frameRate(24);
-  tempo = 30;
+  frameRate(60);
+  tempo = 90;
   _ma= new MainAnimator(width, height);
   monOSC =new OscP5(this, 54545);
 }
@@ -51,7 +52,7 @@ void keyPressed() {
     break;
 
   case 'b':
-  _ma.setBpm((int)random(10,90));
+  _ma.setBpm((int)random(10,180));
   break;
   }
 }
